@@ -38,12 +38,13 @@ func uuid(data []byte, ver string) string {
 		return "Settable"
 	}
 
+	// https://github.com/yumaojun03/dmidecode/issues/22
 	if ver > "2.6" {
-		return fmt.Sprintf("%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
+		return fmt.Sprintf("%02x%02x%02x%02x-%02x%02x-%02x%02x-%02x%02x-%02x%02x%02x%02x%02x%02x",
 			data[3], data[2], data[1], data[0], data[5], data[4], data[7], data[6],
 			data[8], data[9], data[10], data[11], data[12], data[13], data[14], data[15])
 	}
-	return fmt.Sprintf("%02X%02X%02X%02X-%02X%02X-%02X%02X-%02X%02X-%02X%02X%02X%02X%02X%02X",
+	return fmt.Sprintf("%02x%02x%02x%02x-%02x%02x-%02x%02x-%02x%02x-%02x%02x%02x%02x%02x%02x",
 		data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7],
 		data[8], data[9], data[10], data[11], data[12], data[13], data[14], data[15])
 }
