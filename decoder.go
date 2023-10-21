@@ -112,7 +112,7 @@ func (d *Decoder) System() ([]*system.Information, error) {
 	infos := make([]*system.Information, 0, len(d.system))
 	for i := range d.system {
 		d.println(d.system[i])
-		info, err := system.Parse(d.system[i])
+		info, err := system.Parse(d.eps, d.system[i])
 		if err != nil {
 			return nil, err
 		}
