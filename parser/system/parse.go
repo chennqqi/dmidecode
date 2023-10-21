@@ -8,16 +8,15 @@ import (
 )
 
 // Parse 解析smbios struct数据
-func Parse(s *smbios.Structure) (info *Information, err error) {
+func Parse(entry *smbios.EntryPoint, s *smbios.Structure) (info *Information, err error) {
 	defer smbios.ParseRecovery(s, &err)
-
 	info = &Information{
 		Header:       s.Header,
 		Manufacturer: s.GetString(0x0),
 		ProductName:  s.GetString(0x1),
 		Version:      s.GetString(0x2),
 		SerialNumber: s.GetString(0x3),
-		UUID:         uuid(s.GetBytes(0x04, 0x14), s.GetString(2)),
+		UUID:         uuid(s.GetBytes(0x04, 0x14), entry.HexVersion()),
 		WakeUpType:   WakeUpType(s.GetByte(0x14)),
 		SKUNumber:    s.GetString(0x15),
 		Family:       s.GetString(0x16),
