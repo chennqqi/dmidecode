@@ -37,6 +37,7 @@ func main() {
 	eps := decoder.EntryPoint()
 	fmt.Printf("SMBIOS %d.%d.%d - table: address: %#x, size: %d\n",
 		eps.Major, eps.Minor, eps.Revision, eps.Address, eps.Size)
+	fmt.Printf("SMBIOS HEX Version: 0x%x\n", eps.HexVersion())
 
 	switch t {
 	case "":

@@ -29,7 +29,7 @@ type EntryPoint struct {
 }
 
 func (e EntryPoint) HexVersion() uint32 {
-	return 0xFF & (uint32(e.Major)<<8 | (uint32(e.Minor) & 0xFF))
+	return 0xFFFF & (uint32(e.Major)<<8 | (uint32(e.Minor) & 0xFF))
 }
 
 // A Header is a Structure's header.
