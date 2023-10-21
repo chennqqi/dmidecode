@@ -28,7 +28,7 @@ func Parse(entry *smbios.EntryPoint, s *smbios.Structure) (info *Information, er
 // UUID 主板uuid
 // If the value is all FFh, the ID is not currently present in the system,
 // but it can be set. If the value is all 00h, the ID is not present in the system.
-func uuid(data []byte, ver string) string {
+func uuid(data []byte, ver uint32) string {
 	if bytes.Equal(data, bytes.Repeat([]byte{0x00}, len(data))) {
 		return "Not present"
 	}
@@ -38,7 +38,7 @@ func uuid(data []byte, ver string) string {
 	}
 
 	// https://github.com/yumaojun03/dmidecode/issues/22
-	if ver > "2.6" {
+	if ver > 0x0206 {
 		return fmt.Sprintf("%02x%02x%02x%02x-%02x%02x-%02x%02x-%02x%02x-%02x%02x%02x%02x%02x%02x",
 			data[3], data[2], data[1], data[0], data[5], data[4], data[7], data[6],
 			data[8], data[9], data[10], data[11], data[12], data[13], data[14], data[15])
