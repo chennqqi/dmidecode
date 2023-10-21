@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/yumaojun03/dmidecode"
+	"github.com/chennqqi/dmidecode"
 )
 
 func checkError(err error) {

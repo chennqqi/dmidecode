@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/yumaojun03/dmidecode/smbios"
+	"github.com/chennqqi/dmidecode/smbios"
 )
 
 // Parse 解析smbios struct数据
@@ -37,7 +37,7 @@ func uuid(data []byte, ver uint32) string {
 		return "Settable"
 	}
 
-	// https://github.com/yumaojun03/dmidecode/issues/22
+	// https://github.com/chennqqi/dmidecode/issues/22
 	if ver > 0x0206 {
 		return fmt.Sprintf("%02x%02x%02x%02x-%02x%02x-%02x%02x-%02x%02x-%02x%02x%02x%02x%02x%02x",
 			data[3], data[2], data[1], data[0], data[5], data[4], data[7], data[6],

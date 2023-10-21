@@ -3,18 +3,18 @@ package dmidecode
 import (
 	"fmt"
 
-	"github.com/yumaojun03/dmidecode/parser/baseboard"
-	"github.com/yumaojun03/dmidecode/parser/battery"
-	"github.com/yumaojun03/dmidecode/parser/bios"
-	"github.com/yumaojun03/dmidecode/parser/chassis"
-	"github.com/yumaojun03/dmidecode/parser/memory"
-	"github.com/yumaojun03/dmidecode/parser/oem"
-	"github.com/yumaojun03/dmidecode/parser/onboard"
-	"github.com/yumaojun03/dmidecode/parser/port"
-	"github.com/yumaojun03/dmidecode/parser/processor"
-	"github.com/yumaojun03/dmidecode/parser/slot"
-	"github.com/yumaojun03/dmidecode/parser/system"
-	"github.com/yumaojun03/dmidecode/smbios"
+	"github.com/chennqqi/dmidecode/parser/baseboard"
+	"github.com/chennqqi/dmidecode/parser/battery"
+	"github.com/chennqqi/dmidecode/parser/bios"
+	"github.com/chennqqi/dmidecode/parser/chassis"
+	"github.com/chennqqi/dmidecode/parser/memory"
+	"github.com/chennqqi/dmidecode/parser/oem"
+	"github.com/chennqqi/dmidecode/parser/onboard"
+	"github.com/chennqqi/dmidecode/parser/port"
+	"github.com/chennqqi/dmidecode/parser/processor"
+	"github.com/chennqqi/dmidecode/parser/slot"
+	"github.com/chennqqi/dmidecode/parser/system"
+	"github.com/chennqqi/dmidecode/smbios"
 )
 
 // New 实例化

@@ -172,7 +172,7 @@ func (s *Structure) GetString(offset int) string {
 	if index == 0 {
 		return "Unknown"
 	}
-	// https://github.com/yumaojun03/dmidecode/pull/23/commits/b1b723d8a75b2477f623549f5008defda6866e92
+	// https://github.com/chennqqi/dmidecode/pull/23/commits/b1b723d8a75b2477f623549f5008defda6866e92
 	if len(s.Strings) < int(index) {
 		return "Unknown"
 	}
