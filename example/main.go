@@ -19,7 +19,6 @@ func main() {
 	checkError(err)
 
 	// 获取所有信息
-	// infos, err := dmi.ALL()
 	// 获取BIOS信息
 	infos, err := dmi.BIOS()
 	checkError(err)
@@ -27,4 +26,9 @@ func main() {
 	for i := range infos {
 		fmt.Println(infos[i])
 	}
+
+	// 获取所有信息
+	infos_all, err := dmi.ALL()
+	checkError(err)
+	infos_all.Println()
 }

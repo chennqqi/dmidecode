@@ -13,9 +13,11 @@ import (
 	"github.com/chennqqi/dmidecode/parser/oem"
 	"github.com/chennqqi/dmidecode/parser/onboard"
 	"github.com/chennqqi/dmidecode/parser/port"
+	"github.com/chennqqi/dmidecode/parser/power"
 	"github.com/chennqqi/dmidecode/parser/processor"
 	"github.com/chennqqi/dmidecode/parser/slot"
 	"github.com/chennqqi/dmidecode/parser/system"
+	"github.com/chennqqi/dmidecode/parser/tpm"
 )
 
 // NewInformationSet todo
@@ -34,6 +36,8 @@ func NewInformationSet() *InformationSet {
 		memoryDevice:    []*memory.MemoryDevice{},
 		slot:            []*slot.SystemSlot{},
 		battery:         []*battery.Information{},
+		tpm:             []*tpm.Information{},
+		power:           []*power.Information{},
 	}
 }
 
@@ -53,10 +57,12 @@ type InformationSet struct {
 	memoryDevice    []*memory.MemoryDevice
 	slot            []*slot.SystemSlot
 	battery         []*battery.Information
+	tpm             []*tpm.Information
+	power           []*power.Information
 }
 
 // Print 打印所有
-func (s *InformationSet) Print() {
+func (s *InformationSet) Println() {
 	for i := range s.bios {
 		fmt.Println(s.bios[i])
 	}
@@ -95,6 +101,12 @@ func (s *InformationSet) Print() {
 	}
 	for i := range s.battery {
 		fmt.Println(s.battery[i])
+	}
+	for i := range s.tpm {
+		fmt.Println(s.tpm[i])
+	}
+	for i := range s.power {
+		fmt.Println(s.power[i])
 	}
 }
 
@@ -148,6 +160,14 @@ func (s *InformationSet) addSlot(infos []*slot.SystemSlot) {
 
 func (s *InformationSet) addBattery(infos []*battery.Information) {
 	s.battery = infos
+}
+
+func (s *InformationSet) addTpm(infos []*tpm.Information) {
+	s.tpm = infos
+}
+
+func (s *InformationSet) addPower(infos []*power.Information) {
+	s.power = infos
 }
 
 // NewErrorSet todo

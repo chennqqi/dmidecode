@@ -11,9 +11,11 @@ import (
 	"github.com/chennqqi/dmidecode/parser/oem"
 	"github.com/chennqqi/dmidecode/parser/onboard"
 	"github.com/chennqqi/dmidecode/parser/port"
+	"github.com/chennqqi/dmidecode/parser/power"
 	"github.com/chennqqi/dmidecode/parser/processor"
 	"github.com/chennqqi/dmidecode/parser/slot"
 	"github.com/chennqqi/dmidecode/parser/system"
+	"github.com/chennqqi/dmidecode/parser/tpm"
 	"github.com/chennqqi/dmidecode/smbios"
 )
 
@@ -58,6 +60,10 @@ func New() (*Decoder, error) {
 			d.systemSlots = append(d.systemSlots, ss[i])
 		case smbios.PortableBattery:
 			d.portableBattery = append(d.portableBattery, ss[i])
+		case smbios.TPMDevice:
+			d.tpmDevice = append(d.tpmDevice, ss[i])
+		case smbios.PowerSupply:
+			d.powerSupply = append(d.powerSupply, ss[i])
 		default:
 		}
 	}
@@ -85,6 +91,8 @@ type Decoder struct {
 	memoryDevice           []*smbios.Structure
 	systemSlots            []*smbios.Structure
 	portableBattery        []*smbios.Structure
+	tpmDevice              []*smbios.Structure
+	powerSupply            []*smbios.Structure
 }
 
 // Debug 开关Debug
@@ -300,6 +308,32 @@ func (d *Decoder) Battery() ([]*battery.Information, error) {
 	return infos, nil
 }
 
+func (d *Decoder) TpmDevice() ([]*tpm.Information, error) {
+	infos := make([]*tpm.Information, 0, len(d.tpmDevice))
+	for i := range d.tpmDevice {
+		d.println(d.tpmDevice[i])
+		info, err := tpm.Parse(d.tpmDevice[i])
+		if err != nil {
+			return nil, err
+		}
+		infos = append(infos, info)
+	}
+	return infos, nil
+}
+
+func (d *Decoder) PowerSupply() ([]*power.Information, error) {
+	infos := make([]*power.Information, 0, len(d.powerSupply))
+	for i := range d.powerSupply {
+		d.println(d.powerSupply[i])
+		info, err := power.Parse(d.powerSupply[i])
+		if err != nil {
+			return nil, err
+		}
+		infos = append(infos, info)
+	}
+	return infos, nil
+}
+
 // EntryPoint todo
 func (d *Decoder) EntryPoint() *smbios.EntryPoint {
 	return d.eps
@@ -367,6 +401,14 @@ func (d *Decoder) ALL() (*InformationSet, error) {
 	batteryInfos, err := d.Battery()
 	errs.checkOrAdd(err)
 	sets.addBattery(batteryInfos)
+
+	tpmInfos, err := d.TpmDevice()
+	errs.checkOrAdd(err)
+	sets.addTpm(tpmInfos)
+
+	powerInfos, err := d.PowerSupply()
+	errs.checkOrAdd(err)
+	sets.addPower(powerInfos)
 
 	return sets, errs.Error()
 }
